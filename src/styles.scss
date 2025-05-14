@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+
+    html{
+
+        @apply font-Peridot
+    }
+
+    input{
+
+        @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[25%]  md:-translate-y-[85%] w-[95%] caret-indigo-800 z-20 h-7
+        text-indigo-800 font-mono focus:outline-purple-600 focus:outline-0 max-h-7 bg-gray-100 text-sm
+    }
+
+    fieldset{
+
+        @apply relative border rounded-md border-purple-600 h-14 font-mono max-h-14
+    }
+
+    fieldset:focus-within{
+
+        @apply border-purple-800 border-2;
+
+        legend{
+
+            @apply text-purple-800 font-semibold
+        }
+    }
+
+    button{
+
+        @apply py-1 px-2 rounded-lg border border-gray-600 font-mono
+    }
+}
+
+@layer components{
+
+    .right-shadow-box{
+
+        box-shadow: 10px 0px 30px rgba(0, 0, 0, 0.15) ;
+    }
+
+    .router-div{
+
+        @apply h-dvh min-h-min w-[100dvw] lg:min-h-[27rem] lg:w-[70dvw]
+    }
+
+    .input-div{
+
+        @apply flex flex-col w-[80%] md:w-[49%] space-y-1
+    }
+
+    .input-label{
+
+        @apply font-mono text-gray-600
+    }
+
+    .span-hover{
+
+        @apply hover:bg-gray-300/20 hover:text-red-600 hover:transition-colors
+    }
+}

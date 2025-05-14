@@ -1,0 +1,15 @@
+
+.field-div{
+
+    @apply md:w-full px-3 border-indigo-400;
+}
+
+.field-legend{
+
+    @apply px-1 text-indigo-600;
+}
+
+.field-input{
+
+    @apply p-3 focus:outline-indigo-600 -translate-y-[20%];
+}
