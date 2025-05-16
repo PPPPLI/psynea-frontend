@@ -1,10 +1,11 @@
 import { Component, ElementRef} from "@angular/core";
 import { CardComponent } from "../../shared/ui/card/card.component";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from "@angular/common";
 import { PopupComponent } from "../../shared/ui/pop-up/popup.component";
-import {Warning} from "../../model/model"
+import {User, Warning} from "../../model/model"
+import { LoginService } from "../../core/service/loginService";
 
 @Component({
 
@@ -23,7 +24,9 @@ export class RegisterComponent{
 
     invalidFields:Array<HTMLElement> = [];
 
-    constructor(private formBuild:FormBuilder, private elementRef:ElementRef){}
+    constructor(private formBuild:FormBuilder, private elementRef:ElementRef, private loginService:LoginService,
+        private router: Router
+    ){}
 
     formGroup = this.formBuild.group({
 
@@ -72,6 +75,48 @@ export class RegisterComponent{
         }else{
 
 
+            const ele = this.formGroup.value;
+
+            const user:User = {
+
+                username:ele.username!,
+                password:ele.password!,
+                email:ele.email!,
+                tel:ele.tel!
+            }
+
+            const data = JSON.stringify(user);
+
+            this.loginService.auth("/auth/register",data).subscribe({
+
+                next:(res) => {
+
+                    if(res.status === 200){
+
+                        const response = res.body;
+
+                        const data = response!.data as string;
+
+                        this.router.navigate(["/login"],{
+
+                            state: {flag: true}
+                        })
+
+                    }else{
+
+                        this.showWarningFunc(Warning.FAIL_REQUEST,"bg-red-400");
+                    }
+
+
+                },
+
+                error:() => {
+
+                    this.showWarningFunc(Warning.FAIL_REQUEST,"bg-red-400");
+                }
+            })
+            
+
         }
     }
 
@@ -87,5 +132,20 @@ export class RegisterComponent{
             this.invalidFields = [];
         }
     }
+
+    showWarningFunc(message:string, color:string,){
+
+
+        this.warningMessage = message;
+        this.bgColor = color;
+        this.showWarning = true;
+
+        setTimeout(() => {
+            
+            this.showWarning = false;
+
+        }, 3000);
+    }
+
 
 }

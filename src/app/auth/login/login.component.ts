@@ -1,11 +1,12 @@
-import { Component, ElementRef } from "@angular/core";
+import { Component, ElementRef, OnInit } from "@angular/core";
 import { CardComponent } from "../../shared/ui/card/card.component";
 import { Router, RouterLink } from "@angular/router";
 import { PopupComponent } from "../../shared/ui/pop-up/popup.component";
-import {User, Warning, ResponseDto} from "../../model/model"
+import {User, Warning} from "../../model/model"
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { LoginService } from "../../core/service/loginService";
+import { UserState } from "../../state/user/userState.component";
 
 @Component({
 
@@ -15,7 +16,7 @@ import { LoginService } from "../../core/service/loginService";
     templateUrl:"./login.component.html",
     styleUrl:"./login.component.scss"
 })
-export class LoginComponent{
+export class LoginComponent implements OnInit{
 
     showWarning:boolean = false;
     warningMessage:string = Warning.INVALID_MESSAGE;
@@ -24,7 +25,7 @@ export class LoginComponent{
     invalidFields:Array<HTMLElement> = [];
 
     constructor(private formBuilder:FormBuilder, private elementRef:ElementRef, private loginService:LoginService,
-        private router:Router
+        private router:Router, private userState:UserState
     ){}
 
     formGroup = this.formBuilder.group({
@@ -32,6 +33,20 @@ export class LoginComponent{
         username:["",[Validators.required, Validators.minLength(6)]],
         password:["",[Validators.required, Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[^A-Za-z\\d])[A-Za-z\\d\\W]{8,}$")]]
     })
+
+    ngOnInit(): void {
+        
+        //Check if an page redirection from Register page (registeration success)
+        const nav = this.router.getCurrentNavigation();
+        const state = nav?.extras.state;
+
+        if(state != undefined){
+
+            this.showWarningFunc(Warning.ACCOUNT_CREATED,"bg-green-400");
+        }
+
+
+    }
 
     submit(){
 
@@ -86,6 +101,15 @@ export class LoginComponent{
 
                         localStorage.setItem("token-l",data[0]);
                         localStorage.setItem("token-s",data[1]);
+                        localStorage.setItem("username", ele.username!)
+
+                        //Change user state
+                        this.userState.updateUser(user.username,true)
+                        
+
+                        this.formGroup.patchValue({"username":"","password":""})
+
+                        this.router.navigateByUrl("/dashboard");
 
                     }else{
 

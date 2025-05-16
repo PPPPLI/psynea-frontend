@@ -2,7 +2,8 @@ export enum Warning{
 
     INVALID_MESSAGE = "Filed(s) invalid",
     FAIL_REQUEST = "Please try later",
-    SUCCESS = "Successfully processed"
+    SUCCESS = "Successfully processed",
+    ACCOUNT_CREATED = "Account created successfully"
 }
 
 export type User = {

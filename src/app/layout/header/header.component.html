@@ -3,9 +3,9 @@
         <div class="grow flex flex-col justify-center items-center relative">
             <div class="bg-animation"></div>
             <img class="h-14 invert lg:mb-10 select-none" src="../../../assets/logo.png" alt="logo">
-            <a class="link-border" routerLink="/home" routerLinkActive="active-link-border">Home</a>
-            <a class="link-border" routerLink="/home">Test Yourself</a>
-            <a class="link-border" routerLink="/home" >AI Consultation</a> 
+            <a class="link-border" [routerLink]="isLogin?'/dashboard':'/home'" routerLinkActive="active-link-border">{{isLogin?'Dashboard':'Home'}}</a>
+            <a class="link-border" [routerLink]="isLogin?'/dashboard':'/home'" >{{isLogin?'Programs':'Test Yourself'}}</a>
+            <a class="link-border" [routerLink]="isLogin?'/dashboard':'/home'" >{{isLogin?'Appointment':'AI Consultation'}}</a> 
         </div>
     </div>
 </div>
@@ -14,9 +14,9 @@
 flex items-center space-x-10 lg:hidden bg-gray-100">
 
     <div class="grow flex justify-evenly items-center space-x-5">
-        <a class="link-normal" routerLink="/home" routerLinkActive="active-link">Home</a>
-        <a class="link-normal" routerLink="/home">Test-Yourself</a>
-        <a class="link-normal" routerLink="/home" >AI-Consultation</a> 
+        <a class="link-normal" [routerLink]="isLogin?'/dashboard':'/home'"  routerLinkActive="active-link">{{isLogin?'Dashboard':'Home'}}</a>
+        <a class="link-normal" [routerLink]="isLogin?'/dashboard':'/home'" >{{isLogin?'Programs':'Test Yourself'}}</a>
+        <a class="link-normal" [routerLink]="isLogin?'/dashboard':'/home'" >{{isLogin?'Appointment':'AI Consultation'}}</a> 
     </div>
     <div class="sm:flex space-x-3 items-center pr-5 hidden">
         <button class="text-nowrap border rounded-md px-3 py-1 border-gray-500 text-base text-sky-800 hover:bg-gray-300/20 hover:text-red-600"

@@ -1,7 +1,20 @@
 <div class="router-div bg-gray-100 flex flex-col px-10 py-6">
     <div class="space-x-5 mt-3 justify-end hidden lg:flex">
-        <button class="span-hover" routerLink="/login">Sign in</button>
-        <button class="bg-blue-600 text-gray-100 hover:bg-gray-300/20 hover:text-red-600" routerLink="/register">Register</button>
+        <button [class]="'span-hover flex items-center relative '+ (isLogin?'border-none hover:bg-gray-100':'')" [routerLink]="isLogin?null:'/login'" (click)="activeLogout()">
+            <span [class]="'border-none ' + (isLogin?'text-lg':'')">{{isLogin? username:"Sign in"}}</span>
+            @if(isLogin){
+                <i class="bi bi-balloon text-2xl"></i>
+            }
+            @if(isLogout){
+                <span class="absolute border-1 rounded-lg w-full h-7 left-0 top-9 flex items-center 
+                justify-center hover:bg-gray-200 hover:text-red-500">Log out</span>
+            }
+
+        </button>
+        @if(!isLogin){   
+
+            <button class="bg-blue-600 text-gray-100 hover:bg-gray-300/20 hover:text-red-600" routerLink="/register">Register</button>
+        }
     </div>
     <div class="grow flex items-center p-3 sm:p-10">
         <div class="hidden lg:flex lg:justify-center ">

@@ -1,6 +1,7 @@
 import { UpperCasePipe } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component} from "@angular/core";
 import { RouterLink } from "@angular/router";
+import { UserState } from "../../state/user/userState.component";
 
 @Component({
 
@@ -10,4 +11,26 @@ import { RouterLink } from "@angular/router";
     styleUrl:"./homePage.component.scss",
     templateUrl:"./homePage.component.html"
 })
-export class HomePageComponent{}
+export class HomePageComponent{
+
+    username:string;
+    isLogin:boolean;
+    isLogout:boolean = false;
+
+    constructor(private userState:UserState){
+
+        this.username = this.userState.user();
+        this.isLogin = this.userState.isLogin;
+
+        console.log(this.isLogin)
+
+    }
+
+    activeLogout(){
+
+        if(this.isLogin){
+
+            this.isLogout = !this.isLogout;
+        }
+    }
+}
