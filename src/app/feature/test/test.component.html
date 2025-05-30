@@ -1,0 +1,65 @@
+<div class="router-div bg-gray-100 flex flex-col px-10 py-6 relative">
+
+    @if(!testStarted){
+        <login-banner-app></login-banner-app>
+        <div class="div-frame space-y-5">
+            <img class="w-[350px]" src="../../../assets/test-main-page.png" alt="welcome">
+            <span class="w-full text-2xl font-mono font-semibold text-center">
+                First time here? Tell us a bit about 
+                <span class="text-red-400 font-semibold text-3xl text-nowrap">YOURSELF
+                    <i class="bi bi-arrow-right-square-fill text-3xl text-red-400 cursor-pointer animate-pulse duration-100" (click)="start()"></i>
+                </span>
+            </span>
+        </div>
+    }@else {
+
+        <div class="div-frame ">
+            <div class="w-[80%] h-1/6 flex">
+                <div class="relative w-full h-5 border border-black rounded-lg overflow-hidden">
+                    <div
+                        class="absolute h-full flex justify-center items-center bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500  [mask-image:linear-gradient(to_right,black)]"
+                        [style.width.%]="((totalQuestionDone) / questionTotal)*100"
+                    >
+                        <span class="text-white font-mono">{{((totalQuestionDone) / questionTotal)*100}}%</span>
+                    </div>
+                </div>
+            </div>
+            <form class="w-[80%] h-2/6 min-h-min lg:h-2/6 flex flex-col items-center justify-center gap-2 border rounded-lg border-black p-10" [formGroup]="group">
+                <span class="w-full font-semibold text-lg mb-2">{{question}}</span>
+
+                @for (anwser of anwsers; track $index) {
+
+                    <label>
+                        <input type="radio" [value]="anwser" formControlName="ans" (click)="incrementDoneNumber()">
+                        <span>{{anwser}}</span>
+                    </label>
+                }
+
+            </form>
+            <div class="w-[80%] h-14 flex justify-end items-end gap-5">
+                <button class="buttonPattern w-1/2 bg-indigo-400/90 border-2 border-indigo-400 hover:text-indigo-400 hover:bg-white 
+                disabled:cursor-not-allowed disabled:bg-gray-300 disabled:border-gray-300 disabled:hover:text-white"  (click)="changeQuestion(-1)" [disabled]="actuelIndex === 0">
+                    <i class="bi bi-arrow-left-circle"></i>&nbsp;Previous
+                </button>
+
+                @if(questionTotal > actuelIndex+1){
+
+                    <button class="buttonPattern w-1/2 bg-blue-400/90 border-2 border-blue-400 hover:text-blue-400 hover:bg-white" (click)="changeQuestion(1)">
+                        Next&nbsp;<i class="bi bi-arrow-right-circle"></i>
+                    </button>
+
+                }@else if (questionTotal === actuelIndex+1) {
+
+                    <button class="buttonPattern w-1/2 bg-purple-400/90 border-2 border-purple-400 hover:text-purple-400 hover:bg-white">
+                        Send&nbsp;<i class="bi bi-send-check"></i>
+                    </button>
+                }
+
+            </div>
+
+        </div>
+
+
+    }
+
+</div>

@@ -37,12 +37,12 @@ export class LoginComponent implements OnInit{
     ngOnInit(): void {
         
         //Check if an page redirection from Register page (registeration success)
-        const nav = this.router.getCurrentNavigation();
-        const state = nav?.extras.state;
+        const nav = history.state
 
-        if(state != undefined){
+        if(nav.flag != undefined){
 
             this.showWarningFunc(Warning.ACCOUNT_CREATED,"bg-green-400");
+            history.replaceState({},"");
         }
 
 
@@ -99,9 +99,11 @@ export class LoginComponent implements OnInit{
 
                         const data = response!.data as Array<string>;
 
+                        //data response includes 1.longterm token, 2.shortterm token, 3.isNewUser status
                         localStorage.setItem("token-l",data[0]);
                         localStorage.setItem("token-s",data[1]);
                         localStorage.setItem("username", ele.username!)
+                        localStorage.setItem("isNewUser",data[2])
 
                         //Change user state
                         this.userState.updateUser(user.username,true)
@@ -109,8 +111,9 @@ export class LoginComponent implements OnInit{
 
                         this.formGroup.patchValue({"username":"","password":""})
 
-                        this.router.navigateByUrl("/dashboard");
+                        data[2]?this.router.navigateByUrl("/test"):this.router.navigateByUrl("/dashboard");
 
+                    
                     }else{
 
                         this.showWarningFunc(Warning.FAIL_REQUEST,"bg-red-400");

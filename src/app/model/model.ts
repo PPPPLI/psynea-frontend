@@ -12,11 +12,19 @@ export type User = {
     username:string,
     password:string,
     email?:string,
-    tel?:string
+    tel?:string,
+    isNewUser?:boolean
 }
 
 export type ResponseDto = {
 
     status:string,
     data:any
+}
+
+export type Question = {
+
+    question:string,
+    index:number,
+    answers: Array<string>
 }

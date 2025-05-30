@@ -1,5 +1,4 @@
 import { Injectable, signal, WritableSignal } from "@angular/core";
-import { User } from "../../model/model";
 
 @Injectable({
     providedIn:"root"

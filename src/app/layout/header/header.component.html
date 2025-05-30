@@ -3,9 +3,9 @@
         <div class="grow flex flex-col justify-center items-center relative">
             <div class="bg-animation"></div>
             <img class="h-14 invert lg:mb-10 select-none" src="../../../assets/logo.png" alt="logo">
-            <a class="link-border" [routerLink]="isLogin?'/dashboard':'/home'" routerLinkActive="active-link-border">{{isLogin?'Dashboard':'Home'}}</a>
-            <a class="link-border" [routerLink]="isLogin?'/dashboard':'/home'" >{{isLogin?'Programs':'Test Yourself'}}</a>
-            <a class="link-border" [routerLink]="isLogin?'/dashboard':'/home'" >{{isLogin?'Appointment':'AI Consultation'}}</a> 
+            <a class="link-border" [routerLink]="userState.isLogin?'/dashboard':'/home'" routerLinkActive="active-link-border">{{userState.isLogin?'Dashboard':'Home'}}</a>
+            <a class="link-border" [routerLink]="userState.isLogin?'/dashboard':'/home'" >{{userState.isLogin?'Programs':'Test Yourself'}}</a>
+            <a class="link-border" [routerLink]="userState.isLogin?'/dashboard':'/home'" >{{userState.isLogin?'Appointment':'AI Consultation'}}</a> 
         </div>
     </div>
 </div>
@@ -14,16 +14,26 @@
 flex items-center space-x-10 lg:hidden bg-gray-100">
 
     <div class="grow flex justify-evenly items-center space-x-5">
-        <a class="link-normal" [routerLink]="isLogin?'/dashboard':'/home'"  routerLinkActive="active-link">{{isLogin?'Dashboard':'Home'}}</a>
-        <a class="link-normal" [routerLink]="isLogin?'/dashboard':'/home'" >{{isLogin?'Programs':'Test Yourself'}}</a>
-        <a class="link-normal" [routerLink]="isLogin?'/dashboard':'/home'" >{{isLogin?'Appointment':'AI Consultation'}}</a> 
+        <a class="link-normal" [routerLink]="userState.isLogin?'/dashboard':'/home'"  routerLinkActive="active-link">{{userState.isLogin?'Dashboard':'Home'}}</a>
+        <a class="link-normal" [routerLink]="userState.isLogin?'/dashboard':'/home'" >{{userState.isLogin?'Programs':'Test Yourself'}}</a>
+        <a class="link-normal" [routerLink]="userState.isLogin?'/dashboard':'/home'" >{{userState.isLogin?'Appointment':'AI Consultation'}}</a> 
     </div>
-    <div class="sm:flex space-x-3 items-center pr-5 hidden">
-        <button class="text-nowrap border rounded-md px-3 py-1 border-gray-500 text-base text-sky-800 hover:bg-gray-300/20 hover:text-red-600"
-        routerLink="/login"
-        >Sign in</button>
-        <button class="text-nowrap border rounded-md px-3 py-1 border-gray-500 bg-blue-600 hover:bg-gray-300/20 hover:text-red-600
-        text-gray-100 text-base" routerLink="/register">Register</button>
+    <div class="sm:flex space-x-3 items-center pr-5 hidden h-10">
+        <button [class]="'span-hover flex items-center relative '+ (userState.isLogin?'border-none hover:bg-gray-100':'')" [routerLink]="userState.isLogin?null:'/login'" (click)="activeLogout()">
+            <span [class]="'border-none ' + (userState.isLogin?'text-lg':'')">{{userState.isLogin? userState.user():"Sign in"}}</span>
+            @if(userState.isLogin){
+                <i class="bi bi-balloon text-2xl"></i>
+            }
+            @if(isLogout){
+                <span class="absolute border-1 rounded-lg w-full h-7 left-0 top-9 flex items-center 
+                justify-center hover:bg-gray-200 hover:text-red-500" (click)="confirm()">Log out</span>
+            }
+
+        </button>
+        @if(!userState.isLogin){   
+
+            <button class="bg-blue-600 items-center flex h-full text-gray-100 hover:bg-gray-300/20 hover:text-red-600" routerLink="/register">Register</button>
+        }
     </div>
 
 </div>

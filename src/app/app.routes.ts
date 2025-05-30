@@ -3,6 +3,7 @@ import { HomePageComponent } from './feature/homePage/homePage.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { DashboardComponent } from './feature/dashboard/dashboard.component';
+import { TestComponent } from './feature/test/test.component';
 
 export const routes: Routes = [
 
@@ -10,6 +11,7 @@ export const routes: Routes = [
     {path:"home", component:HomePageComponent,},
     {path:"register",component:RegisterComponent},
     {path:"login",component:LoginComponent},
-    {path:"dashboard",component:DashboardComponent}
+    {path:"dashboard",component:DashboardComponent},
+    {path:"test",component:TestComponent}
 
 ];

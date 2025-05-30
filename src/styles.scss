@@ -9,7 +9,7 @@
         @apply font-Peridot
     }
 
-    input{
+    input[type="text"],input[type="password"]{
 
         @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[25%]  md:-translate-y-[85%] w-[95%] caret-indigo-800 z-20 h-7
         text-indigo-800 font-mono focus:outline-purple-600 focus:outline-0 max-h-7 bg-gray-100 text-sm

@@ -1,17 +1,16 @@
 import { Component } from "@angular/core";
-import { Router, RouterLink, RouterLinkActive } from "@angular/router";
-import { UserState } from "../../state/user/userState.component";
+import { UserState } from "../../../state/user/userState.component";
+import { Router, RouterLink } from "@angular/router";
 
 @Component({
 
-    selector:"header-app",
-    imports: [RouterLink, RouterLinkActive],
-    standalone: true,
-    templateUrl : "./header.component.html",
-    styleUrl: "./header.component.scss"
+    selector:"login-banner-app",
+    standalone:true,
+    imports:[RouterLink],
+    templateUrl:"./login-banner.component.html",
+    styleUrl:"./login-banner.component.scss"
 })
-export class HeaderComponent{
-
+export class LoginBannerComponent{
 
     isLogout:boolean = false;
 
