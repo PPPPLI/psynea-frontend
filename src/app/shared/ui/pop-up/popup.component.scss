@@ -1,0 +1,22 @@
+.transition-effect{
+
+    animation: showEffect 5s cubic-bezier(0.23, 1, 0.320, 1) forwards;
+}
+
+@keyframes showEffect {
+
+    0%{
+
+        opacity: 0;
+    }
+
+    50%{
+
+        opacity: 1;
+    }
+
+    100%{
+
+        opacity: 0;
+    }
+}

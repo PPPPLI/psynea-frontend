@@ -1,0 +1,50 @@
+<div class="router-div flex justify-center items-center bg-gray-100">
+
+    <div class="h-1/2 w-[50%] lg:w-1/3">
+
+        <card-app
+        height="h-full"
+        width="w-full"
+        headerName="Sign in"
+        [hasbackforward]="true"
+        headerBg="bg-indigo-400"
+        >
+            <form class="flex flex-col space-y-3 items-center w-full h-full min-h-min p-5 
+            justify-around border-b border-gray-300" [formGroup]="formGroup">
+                <fieldset  class="input-div field-div" id="username" (click)="initializeInput()">
+                    <legend class="field-legend">Username/Email</legend>
+                    <input type="text" class="field-input" formControlName="username">
+                </fieldset>
+
+                <fieldset  class="input-div field-div" id="password" (click)="initializeInput()">
+                    <legend class="field-legend">Password</legend>
+                    <input  type="password" class="field-input" formControlName="password">
+                </fieldset>
+          
+            </form>
+
+            <div class="w-[80%] md:w-full h-full flex justify-between items-center  space-x-3" footer>
+                <button class="text-gray-600 span-hover w-[45%] px-2 min-w-min" routerLink="/home">CANCEL</button>
+                <button class="text-white span-hover bg-indigo-400 w-[45%] flex items-center justify-center px-2 space-x-1 min-w-min"
+                (click)="submit()">
+                    <span class="text-nowrap">SUBMIT</span>
+                    <i class="bi bi-send"></i>
+                </button>
+            </div>
+
+        </card-app>
+
+    </div>
+
+
+</div>
+
+@if(showWarning){
+
+    <popup-app
+    [bgColor]="bgColor"
+    [message]="warningMessage"
+    >
+
+    </popup-app>
+}

@@ -1,0 +1,56 @@
+<div class="router-div flex justify-center items-center min-h-min bg-gray-100">
+
+    <div class="h-1/2 w-[70%] md:w-1/2 min-h-min">
+        <card-app
+        height="h-full"
+        width="w-full"
+        headerName="Register"
+        [hasbackforward]="true"
+        >
+            <form class="flex flex-col space-y-3 md:space-y-0 md:flex-row items-center w-full h-full min-h-min md:flex-wrap p-5 
+            justify-between border-b border-gray-300" [formGroup]="formGroup">
+
+                <fieldset class="input-div px-3" id="username" (click)="initializeInput()">
+                    <legend class="px-1 text-purple-600"><b class="text-red-500">*</b>Username</legend>
+                    <input type="text" class="p-3" formControlName="username" placeholder="At least 6 characters">
+                </fieldset>
+
+                <fieldset class="input-div px-3" id="password" (click)="initializeInput()">
+                    <legend class="px-1 text-purple-600"><b class="text-red-500">*</b>Password</legend>
+                    <input type="password" class="p-3" formControlName="password" placeholder="8+chars|A-Z|0-9|Symbols">
+                </fieldset>
+                <fieldset class="input-div px-3" id="email" (click)="initializeInput()">
+                    <legend class="px-1 text-purple-600">Email</legend>
+                    <input type="text" class="p-3" formControlName="email" placeholder="Enter your email">
+                </fieldset>
+                <fieldset class="input-div px-3" id="tel" (click)="initializeInput()">
+                    <legend class="px-1 text-purple-600">Tel.</legend>
+                    <input type="text" class="p-3" formControlName="tel" placeholder="Optional">
+                </fieldset>                        
+            </form>
+
+            <div class="w-[80%] md:w-full h-full flex justify-between items-center md:justify-end space-x-3" footer>
+                <button class="text-gray-600 span-hover w-[45%] md:w-[25%]" routerLink="/home">CANCEL</button>
+                <button class="text-white span-hover bg-violet-400 w-[45%] md:w-[25%] flex items-center justify-center px-1 space-x-1"
+                (click)="createAccount()"
+                >
+                    <span>CREATE</span>
+                    <i class="bi bi-rocket-takeoff"></i>
+                </button>
+            </div>
+        </card-app>
+    </div>
+
+</div>
+
+@if (showWarning) {
+
+    <popup-app
+    [bgColor]="bgColor"
+    [message]="warningMessage"
+    >
+
+    </popup-app>
+
+}
+

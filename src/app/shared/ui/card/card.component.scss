@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+
+    .card-bg{
+
+        background: linear-gradient(to bottom right, #7c4dd1, #9b5de5, #b97fdc);
+    }
+}

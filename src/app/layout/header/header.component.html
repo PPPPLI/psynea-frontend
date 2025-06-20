@@ -1,0 +1,39 @@
+<div class="hidden h-dvh w-[100dvw] min-h-[33.6rem] lg:w-[30dvw] lg:flex flex-col ingradient-bg right-shadow-box">
+    <div class="w-full h-full grow flex items-center">
+        <div class="grow flex flex-col justify-center items-center relative">
+            <div class="bg-animation"></div>
+            <img class="h-14 invert lg:mb-10 select-none" src="../../../assets/logo.png" alt="logo">
+            <a class="link-border" [routerLink]="userState.isLogin?'/dashboard':'/home'" routerLinkActive="active-link-border">{{userState.isLogin?'Dashboard':'Home'}}</a>
+            <a class="link-border" [routerLink]="userState.isLogin?'/dashboard':'/home'" >{{userState.isLogin?'Programs':'Test Yourself'}}</a>
+            <a class="link-border" [routerLink]="userState.isLogin?'/dashboard':'/home'" >{{userState.isLogin?'Appointment':'AI Consultation'}}</a> 
+        </div>
+    </div>
+</div>
+
+<div class="h-20 w-dvw fixed right-0 top-0
+flex items-center space-x-10 lg:hidden bg-gray-100">
+
+    <div class="grow flex justify-evenly items-center space-x-5">
+        <a class="link-normal" [routerLink]="userState.isLogin?'/dashboard':'/home'"  routerLinkActive="active-link">{{userState.isLogin?'Dashboard':'Home'}}</a>
+        <a class="link-normal" [routerLink]="userState.isLogin?'/dashboard':'/home'" >{{userState.isLogin?'Programs':'Test Yourself'}}</a>
+        <a class="link-normal" [routerLink]="userState.isLogin?'/dashboard':'/home'" >{{userState.isLogin?'Appointment':'AI Consultation'}}</a> 
+    </div>
+    <div class="sm:flex space-x-3 items-center pr-5 hidden h-10">
+        <button [class]="'span-hover flex items-center relative '+ (userState.isLogin?'border-none hover:bg-gray-100':'')" [routerLink]="userState.isLogin?null:'/login'" (click)="activeLogout()">
+            <span [class]="'border-none ' + (userState.isLogin?'text-lg':'')">{{userState.isLogin? userState.user():"Sign in"}}</span>
+            @if(userState.isLogin){
+                <i class="bi bi-balloon text-2xl"></i>
+            }
+            @if(isLogout){
+                <span class="absolute border-1 rounded-lg w-full h-7 left-0 top-9 flex items-center 
+                justify-center hover:bg-gray-200 hover:text-red-500" (click)="confirm()">Log out</span>
+            }
+
+        </button>
+        @if(!userState.isLogin){   
+
+            <button class="bg-blue-600 items-center flex h-full text-gray-100 hover:bg-gray-300/20 hover:text-red-600" routerLink="/register">Register</button>
+        }
+    </div>
+
+</div>

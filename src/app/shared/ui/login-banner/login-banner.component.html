@@ -1,0 +1,17 @@
+<div class="space-x-5 mt-3 justify-end hidden lg:flex">
+    <button [class]="'span-hover flex items-center relative '+ (userState.isLogin?'border-none hover:bg-gray-100':'')" [routerLink]="userState.isLogin?null:'/login'" (click)="activeLogout()">
+        <span [class]="'border-none ' + (userState.isLogin?'text-lg':'')">{{userState.isLogin? userState.user():"Sign in"}}</span>
+        @if(userState.isLogin){
+            <i class="bi bi-balloon text-2xl"></i>
+        }
+        @if(isLogout){
+            <span class="absolute border-1 rounded-lg w-full h-7 left-0 top-9 flex items-center 
+            justify-center hover:bg-gray-200 hover:text-red-500" (click)="confirm()">Log out</span>
+        }
+
+    </button>
+    @if(!userState.isLogin){   
+
+        <button class="bg-blue-600 text-gray-100 hover:bg-gray-300/20 hover:text-red-600" routerLink="/register">Register</button>
+    }
+</div>

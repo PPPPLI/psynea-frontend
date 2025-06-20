@@ -1,0 +1,18 @@
+<div [class]="'flex flex-col min-h-min rounded-lg shadow-lg ' + width +' '+ height">
+    <header [class]="'w-full h-1/5 flex justify-between items-cente rounded-t-lg p-5 ' + headerBg">
+        <div class="flex space-x-4 items-center">
+            @if(hasbackforward){
+                
+                <i class="bi bi-arrow-left-circle text-3xl text-white hover:animate-pulse cursor-pointer" routerLink="/home"></i>
+            }
+            <span class="text-white text-2xl font-mono select-none cursor-auto">{{headerName | uppercase }}</span>
+        </div>
+        <ng-content select="[header]"></ng-content>
+    </header>
+    <main class="w-full h-3/5 min-h-min">
+        <ng-content></ng-content>
+    </main>
+    <footer class="w-full h-1/5 flex justify-center p-5">
+        <ng-content select="[footer]"></ng-content>
+    </footer>
+</div>
