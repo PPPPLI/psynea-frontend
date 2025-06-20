@@ -28,3 +28,13 @@ export type Question = {
     index:number,
     answers: Array<string>
 }
+
+export interface ChatbotResult {
+  anxiete: number;
+  moral: number;
+  suicidal: boolean;
+  troubles: string[];
+  objectif?: string;
+  autonomie?: string;
+  weeklyScore?: number;
+}

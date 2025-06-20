@@ -1,0 +1,21 @@
+<div class="chat-container">
+  <div class="messages">
+    <div class="chat-scroll-area">
+      <div *ngFor="let msg of messages" class="message" [ngClass]="msg.role">
+        {{ msg.content }}
+      </div>
+    </div>
+
+    <div class="input-box">
+      <input
+        class="chat-input"
+        placeholder="Répond ici"
+        [(ngModel)]="userInput"
+        (keydown.enter)="sendMessage()"
+      />
+      <!--<button (click)="sendMessage()" [disabled]="loading">
+        Envoyer
+      </button>-->
+    </div>
+  </div>
+</div>

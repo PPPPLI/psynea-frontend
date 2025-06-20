@@ -3,7 +3,8 @@ import { HomePageComponent } from './feature/homePage/homePage.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { DashboardComponent } from './feature/dashboard/dashboard.component';
-import { TestComponent } from './feature/test/test.component';
+import { ChatbotPageComponent } from './chatbot-page/chatbot-page.component';
+import { ChatbotResultComponent } from './chatbot-result/chatbot-result.component';
 
 export const routes: Routes = [
 
@@ -12,6 +13,6 @@ export const routes: Routes = [
     {path:"register",component:RegisterComponent},
     {path:"login",component:LoginComponent},
     {path:"dashboard",component:DashboardComponent},
-    {path:"test",component:TestComponent}
-
+    {path: 'chatbot', component:ChatbotPageComponent},
+    {path: 'chatbot-result', component: ChatbotResultComponent }
 ];
