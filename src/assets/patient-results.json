@@ -4,10 +4,23 @@
     "nom": "Alice Dupont",
     "age": 30,
     "etat": "Étudiant",
+    "scoreAnxiete": 6,
+    "scoreMoral": 7,
+    "suicidaire": false,
+    "troubles": ["Sommeil", "Dépendance"],
+    "objectif": "Arrêter de fumer",
+    "autonomie": "Faible",
     "suivi": [
       { "date": "2025-05-01", "anxiete": 7, "moral": 4 },
-      { "date": "2025-05-15", "anxiete": 5, "moral": 6 },
       { "date": "2025-06-01", "anxiete": 4, "moral": 7 }
+    ],
+    "historique": [
+      { "role": "assistant", "content": "Bonjour Alice, comment vous sentez-vous aujourd'hui ?" },
+      { "role": "user", "content": "Je me sens un peu anxieuse ce matin." },
+      { "role": "assistant", "content": "Avez-vous bien dormi cette nuit ?" },
+      { "role": "user", "content": "Non, j’ai eu du mal à m’endormir." },
+      { "role": "assistant", "content": "Avez-vous consommé quelque chose pour vous aider à dormir ?" },
+      { "role": "user", "content": "Oui, un peu d’alcool." }
     ]
   },
   {
@@ -15,9 +28,23 @@
     "nom": "Marc Martin",
     "age": 42,
     "etat": "En emploi",
+    "scoreAnxiete": 5,
+    "scoreMoral": 6,
+    "suicidaire": true,
+    "troubles": [],
+    "objectif": "Mieux gérer le stress",
+    "autonomie": "Moyenne",
     "suivi": [
       { "date": "2025-04-20", "anxiete": 6, "moral": 5 },
       { "date": "2025-05-25", "anxiete": 5, "moral": 6 }
+    ],
+    "historique": [
+      { "role": "assistant", "content": "Bonjour Marc, avez-vous ressenti du stress récemment ?" },
+      { "role": "user", "content": "Oui, surtout au travail ces derniers jours." },
+      { "role": "assistant", "content": "Arrivez-vous à vous détendre une fois rentré chez vous ?" },
+      { "role": "user", "content": "Pas vraiment, j’ai des pensées négatives." },
+      { "role": "assistant", "content": "Souhaitez-vous parler de ces pensées ?" },
+      { "role": "user", "content": "Je pense souvent que je ne m’en sortirai jamais." }
     ]
   }
 ]

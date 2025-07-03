@@ -8,13 +8,27 @@ export interface FollowUp {
   anxiete: number;
   moral: number;
 }
+
+export interface Message {
+  role: 'assistant' | 'user';
+  content: string;
+}
+
 export interface PatientResult {
   patientId: string;
   nom: string;
   age: number;
   etat: string;
+  scoreAnxiete: number;
+  scoreMoral: number;
+  suicidaire: boolean;
+  troubles: string[];
+  objectif: string;
+  autonomie: string;
   suivi: FollowUp[];
+  historique: Message[];
 }
+
 
 @Injectable({ providedIn: 'root' })
 export class ResultsService {

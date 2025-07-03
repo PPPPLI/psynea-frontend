@@ -1,17 +1,135 @@
 .results-container {
-  padding: 20px;
-  max-width: 800px;
+  max-width: 900px;
   margin: auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+  overflow-y: auto;
+  max-height: 100dvh;
+}
 
-  h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
+.title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.section-block {
+  margin-bottom: 3rem;
+}
+
+.chart-box {
+  margin-top: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1rem;
+  background: #fafafa;
+}
+
+.patient-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  button {
+    padding: 0.5rem 1rem;
+    background: #4285f4;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
   }
 
-  .response-block {
-    background: #f2f2f2;
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 10px;
+  button[disabled] {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+.patient-card {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 12px;
+  background: #fdfdfd;
+
+  h3 {
+    margin-top: 0;
+  }
+
+  .age {
+    color: #666;
+    font-weight: normal;
+  }
+
+  .status {
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+}
+
+.patient-details {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    margin: 0.5rem 0;
+  }
+
+  .clickable {
+    cursor: pointer;
+    color: #007acc;
+    text-decoration: underline;
+  }
+}
+
+.table-wrapper {
+  margin-top: 1rem;
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 0.5rem;
+    }
+
+    th {
+      background: #f0f0f0;
+    }
+  }
+}
+
+.ai-analysis {
+  background: #fff3cd;
+  border-left: 4px solid #ffecb5;
+  padding: 1rem;
+  border-radius: 8px;
+
+  h3 {
+    margin-top: 0;
+  }
+}
+
+.empty-state {
+  font-style: italic;
+  color: #777;
+}
+
+.toggle-chart-btn {
+  margin-left: 1rem;
+  padding: 0.3rem 0.8rem;
+  background-color: #e3f2fd;
+  border: 1px solid #90caf9;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #bbdefb;
   }
 }

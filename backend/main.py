@@ -41,7 +41,7 @@ def chat(req: ChatRequest):
   history = req.history
   index = req.question_index
 
-  if len(history) > 0 and detect_emergency(history[-1]["content"]):
+  if len(history) > 0 and detect_emergency(history[-1].content):
     return {
       "emergency": True,
       "message": EMERGENCY_MESSAGE,
