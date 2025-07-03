@@ -1,0 +1,23 @@
+.result-container {
+  @apply max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md text-gray-800;
+}
+
+.title {
+  @apply text-2xl font-bold mb-4;
+}
+
+.score-list {
+  @apply space-y-2 mb-6;
+}
+
+.weekly-check {
+  @apply flex flex-col gap-2;
+}
+
+input[type="number"] {
+  @apply w-24 p-2 border border-gray-300 rounded;
+}
+
+button {
+  @apply w-fit px-4 py-2 bg-sky-600 text-white rounded hover:bg-sky-700;
+}

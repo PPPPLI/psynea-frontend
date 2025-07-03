@@ -1,0 +1,12 @@
+<div class="results-container">
+  <h2>Réponses du patient</h2>
+
+  <div *ngIf="responses.length === 0">
+    Aucune donnée enregistrée.
+  </div>
+
+  <div *ngFor="let resp of responses; let i = index" class="response-block">
+    <strong>Question {{ i + 1 }} :</strong>
+    <p>{{ resp.content }}</p>
+  </div>
+</div>

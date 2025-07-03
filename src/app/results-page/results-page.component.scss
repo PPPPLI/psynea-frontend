@@ -1,0 +1,17 @@
+.results-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+
+  h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+
+  .response-block {
+    background: #f2f2f2;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+}

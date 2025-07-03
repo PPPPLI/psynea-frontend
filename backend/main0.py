@@ -12,6 +12,22 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 app = FastAPI()
 
+@app.post("/results")
+def get_results(req: ChatRequest):
+  return {
+    "responses": req.history,
+    "summary": summarize_responses(req.history)
+  }
+
+def summarize_responses(history):
+  # Exemple de résumé simple (peut être amélioré avec GPT si nécessaire)
+  summary = {}
+  for i, msg in enumerate(history):
+    if msg["role"] == "user":
+      summary[f"Q{i+1}"] = msg["content"]
+  return summary
+
+
 app.add_middleware(
   CORSMiddleware,
   allow_origins=["http://localhost:4200"],
@@ -34,6 +50,10 @@ class Message(BaseModel):
 
 class ChatRequest(BaseModel):
   history: List[Message]
+  question_index: int
+
+class ChatRequest(BaseModel):
+  history: list
   question_index: int
 
 @app.post("/chat")
@@ -64,3 +84,20 @@ def chat(req: ChatRequest):
     "question_index": index + 1,
     "end": False
   }
+
+
+@app.post("/results")
+def get_results(req: ChatRequest):
+  return {
+    "responses": req.history,
+    "summary": summarize_responses(req.history)
+  }
+
+def summarize_responses(history):
+  # Exemple de résumé simple (peut être amélioré avec GPT si nécessaire)
+  summary = {}
+  for i, msg in enumerate(history):
+    if msg["role"] == "user":
+      summary[f"Q{i+1}"] = msg["content"]
+  return summary
+

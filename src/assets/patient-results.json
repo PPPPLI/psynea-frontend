@@ -1,0 +1,23 @@
+[
+  {
+    "patientId": "p001",
+    "nom": "Alice Dupont",
+    "age": 30,
+    "etat": "Étudiant",
+    "suivi": [
+      { "date": "2025-05-01", "anxiete": 7, "moral": 4 },
+      { "date": "2025-05-15", "anxiete": 5, "moral": 6 },
+      { "date": "2025-06-01", "anxiete": 4, "moral": 7 }
+    ]
+  },
+  {
+    "patientId": "p002",
+    "nom": "Marc Martin",
+    "age": 42,
+    "etat": "En emploi",
+    "suivi": [
+      { "date": "2025-04-20", "anxiete": 6, "moral": 5 },
+      { "date": "2025-05-25", "anxiete": 5, "moral": 6 }
+    ]
+  }
+]

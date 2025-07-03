@@ -1,12 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgFor, NgIf, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-interface Message {
-  role: 'assistant' | 'user' | string;
-  content: string;
-}
 
 @Component({
   selector: 'app-chatbot-page',
@@ -15,51 +10,22 @@ interface Message {
   templateUrl: './chatbot-page.component.html',
   styleUrl: './chatbot-page.component.scss'
 })
-export class ChatbotPageComponent implements OnInit {
+export class ChatbotPageComponent {
   userInput = '';
-
-  /** Historique du dialogue (chargé/rechargé depuis localStorage) */
-  messages: Message[] = [
+  messages: any[] = [
     { role: 'assistant', content: 'Bonjour et bienvenue ! Commençons le questionnaire d’accueil. 😊' }
   ];
-
   loading = false;
   questionIndex = 0;
   conversationEnded = false;
 
   constructor(private http: HttpClient) {}
 
-  /** ----------------------------- *
-   *  Initialisation du composant   *
-   * ------------------------------ */
-  ngOnInit(): void {
-    const saved = localStorage.getItem('chatHistory');
-    const savedIndex = localStorage.getItem('questionIndex');
-
-    if (saved) {
-      try {
-        this.messages = JSON.parse(saved);
-      } catch (_) {
-        localStorage.removeItem('chatHistory'); // mauvais format ? on réinitialise
-      }
-    }
-
-    if (savedIndex) {
-      this.questionIndex = +savedIndex;
-    }
-  }
-
-  /** ----------------------------- *
-   *  Envoi d'un message utilisateur *
-   * ------------------------------ */
-  sendMessage(): void {
+  sendMessage() {
     if (!this.userInput.trim() || this.loading || this.conversationEnded) return;
 
-    const userMessage: Message = { role: 'user', content: this.userInput };
-    console.log("userMessage : " + userMessage)
+    const userMessage = { role: 'user', content: this.userInput };
     this.messages.push(userMessage);
-    console.log('Messages actuels :', this.messages);
-    this.saveChatState(); // --> Sauvegarde immédiate après ajout du message utilisateur
 
     const payload = {
       history: [
@@ -84,22 +50,11 @@ export class ChatbotPageComponent implements OnInit {
           this.questionIndex = res.question_index ?? this.questionIndex;
           this.conversationEnded = res.end;
         }
-
-        this.saveChatState(); // --> mise à jour après réponse du backend
       },
       error: () => {
         this.loading = false;
         this.messages.push({ role: 'assistant', content: 'Erreur de connexion au serveur.' });
-        this.saveChatState();
       }
     });
-  }
-
-  /** ----------------------------- *
-   *  Sauvegarde locale du contexte *
-   * ------------------------------ */
-  private saveChatState(): void {
-    localStorage.setItem('chatHistory', JSON.stringify(this.messages));
-    localStorage.setItem('questionIndex', this.questionIndex.toString());
   }
 }

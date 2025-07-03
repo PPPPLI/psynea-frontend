@@ -1,0 +1,18 @@
+<div class="result-container">
+  <h2 class="title">🧠 Résultats de l’évaluation</h2>
+
+  <ul class="score-list">
+    <li><strong>Score d'anxiété :</strong> {{ result.anxiete }}/10</li>
+    <li><strong>Score de moral :</strong> {{ result.moral }}/10</li>
+    <li><strong>Pensées suicidaires :</strong> {{ result.suicidal ? '🚩 Oui' : 'Non' }}</li>
+    <li><strong>Troubles déclarés :</strong> {{ result.troubles.join(', ') || 'Aucun' }}</li>
+    <li><strong>Objectif déclaré :</strong> {{ result.objectif || 'Non précisé' }}</li>
+    <li><strong>Volonté d'autonomie :</strong> {{ result.autonomie }}</li>
+  </ul>
+
+  <div class="weekly-check">
+    <label for="weekly-score">📅 Comment te sens-tu cette semaine ? (1–10)</label>
+    <input type="number" id="weekly-score" [(ngModel)]="weeklyScore" min="1" max="10" />
+    <button (click)="submitWeekly()">Envoyer</button>
+  </div>
+</div>
