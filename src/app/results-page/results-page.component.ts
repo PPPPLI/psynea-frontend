@@ -45,6 +45,11 @@ export class ResultsPageComponent
   searchTerm: string = '';
   private troubleChart?: Chart;
 
+  /* -------------------- Moyennes et compte ------------------*/
+  avgAnxiete: number = 0;
+  avgMoral: number = 0;
+  suicideCount: number = 0;
+
   get currentPatient(): PatientResult | undefined {
     //return this.patients[this.currentPatientIndex];
     return this.filteredPatients[this.currentPatientIndex];
@@ -85,6 +90,11 @@ export class ResultsPageComponent
   ngOnInit(): void {
     //this.filteredPatients = [...this.patients];
     this.filterPatients();
+    this.avgAnxiete = this.patients.reduce((sum, p) => sum + p.scoreAnxiete, 0) / this.patients.length;
+    this.avgMoral = this.patients.reduce((sum, p) => sum + p.scoreMoral, 0) / this.patients.length;
+    this.suicideCount = this.patients.filter(p => p.suicidaire).length;
+
+
     /* 1. charge l’historique global du chatbot (facultatif) */
     const saved = localStorage.getItem('chatHistory');
     if (saved) {
@@ -98,14 +108,6 @@ export class ResultsPageComponent
       }
     }
 
-    /* 2. charge les patients (JSON local ou futur endpoint API) */
-    /*this.resultsSrv.getAll().subscribe(data => {
-      this.patients = data;
-      console.log('Patients chargés :', this.patients);
-      //this.needChartRefresh = true;
-      this.renderParticipationChart();
-    });*/
-
     this.resultsSrv.getAll().subscribe(data => {
       this.patients = data;
       console.log('Patients chargés :', this.patients);
@@ -114,6 +116,12 @@ export class ResultsPageComponent
       this.patients.forEach(p => (p.troubles || []).forEach(t => set.add(t)));
       this.troubleList = Array.from(set);
       this.filteredPatients = [...this.patients];
+
+      if (this.patients.length > 0) {
+        this.avgAnxiete = this.patients.reduce((sum, p) => sum + p.scoreAnxiete, 0) / this.patients.length;
+        this.avgMoral = this.patients.reduce((sum, p) => sum + p.scoreMoral, 0) / this.patients.length;
+        this.suicideCount = this.patients.filter(p => p.suicidaire).length;
+      }
 
       this.renderParticipationChart();
     });

@@ -3,6 +3,14 @@
   <h1 class="title">🩺 Tableau de bord</h1>
 
   <!-- Bloc de résumé des réponses utilisateur -->
+  <section class="section-block kpi-summary" *ngIf="patients.length > 0">
+    <h2>Indicateurs globaux </h2>
+    <div class="kpi-card">Patients : <strong>{{ patients.length }}</strong></div>
+    <div class="kpi-card">Anxiété moyenne : <strong>{{ avgAnxiete | number: '1.1-1' }}/10</strong></div>
+    <div class="kpi-card">Moral moyen : <strong>{{ avgMoral | number: '1.1-1' }}/10</strong></div>
+    <div class="kpi-card">Troubles suicidaires : <strong>{{ suicideCount }}</strong></div>
+  </section>
+
   <section class="section-block">
     <h2>Répartition des troubles</h2>
 
@@ -56,10 +64,16 @@
       <h3>{{ currentPatient.nom }} <span class="age">({{ currentPatient.age }} ans)</span></h3>
       <p class="status">Statut : <strong>{{ currentPatient.etat }}</strong></p>
 
+
+
       <ul class="patient-details">
         <li>
-          <strong>Score anxiété</strong> : {{ currentPatient.scoreAnxiete }}/10 &nbsp; | &nbsp;
-          <strong>Score moral</strong> : {{ currentPatient.scoreMoral }}/10
+
+          <div><strong>Score anxiété</strong> : {{ currentPatient.scoreAnxiete }}/10</div>
+          <progress max="10" [value]="currentPatient.scoreAnxiete"></progress>
+
+          <div><strong>Score moral</strong> : {{ currentPatient.scoreMoral }}/10</div>
+          <progress max="10" [value]="currentPatient.scoreMoral"></progress>
 
           <button (click)="toggleChart()" class="toggle-chart-btn">
             {{ showChart ? '-' : '+' }}
