@@ -28,6 +28,7 @@ export interface PatientResult {
   autonomie: string;
   suivi: FollowUp[];
   historique: Message[];
+  resumeIA?: string;
 }
 
 

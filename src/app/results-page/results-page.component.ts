@@ -42,6 +42,7 @@ export class ResultsPageComponent
   troubleList: string[] = [];
   selectedTrouble = 'Tous';
   sortDesc = true;
+  searchTerm: string = '';
   private troubleChart?: Chart;
 
   get currentPatient(): PatientResult | undefined {
@@ -82,7 +83,8 @@ export class ResultsPageComponent
 
   /* -------------------- cycle de vie ------------------------ */
   ngOnInit(): void {
-    this.filteredPatients = [...this.patients];
+    //this.filteredPatients = [...this.patients];
+    this.filterPatients();
     /* 1. charge l’historique global du chatbot (facultatif) */
     const saved = localStorage.getItem('chatHistory');
     if (saved) {
@@ -137,6 +139,7 @@ export class ResultsPageComponent
   }
 
   updateTroubleChart(): void {
+    this.filterPatients();
     this.renderParticipationChart();
 
     if (this.selectedTrouble === 'Tous') {
@@ -156,6 +159,28 @@ export class ResultsPageComponent
     this.sortDesc = !this.sortDesc;
     this.renderParticipationChart();
   }
+
+  /** Filtre combiné : nom/prénom + trouble */
+  filterPatients(): void {
+    const term = this.searchTerm.trim().toLowerCase();
+
+    let list = [...this.patients];
+
+    if (this.selectedTrouble !== 'Tous') {
+      list = list.filter(p => p.troubles?.includes(this.selectedTrouble));
+    }
+
+    if (term) {
+      list = list.filter(p =>
+        p.nom.toLowerCase().includes(term)
+      );
+    }
+
+    this.filteredPatients = list;
+    this.currentPatientIndex = 0;
+  }
+
+
 
   private renderPatientEmotionChart(): void {
     if (!this.currentPatient || !this.patientEmotionChartRef) return;

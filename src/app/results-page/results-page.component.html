@@ -1,10 +1,11 @@
 <div class="results-container">
 
-  <h1 class="title">🩺 Tableau de bord patient</h1>
+  <h1 class="title">🩺 Tableau de bord</h1>
 
   <!-- Bloc de résumé des réponses utilisateur -->
   <section class="section-block">
     <h2>Répartition des troubles</h2>
+
 
     <div *ngIf="responses.length === 0" class="empty-state">
       Aucune donnée enregistrée.
@@ -31,7 +32,18 @@
 
   <!-- Navigation entre patients -->
   <section class="section-block">
-    <h2>🧑‍⚕️ Données patient</h2>
+    <h2>Données patient</h2>
+
+    <!-- Barre de recherche -->
+    <div class="search-bar">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="filterPatients()"
+        placeholder="🔍 Rechercher un patient par nom ou prénom"
+        class="small-search-bar"
+      />
+    </div>
 
     <div class="patient-navigation">
       <button (click)="prevPatient()" [disabled]="currentPatientIndex === 0">← Précédent</button>
@@ -65,8 +77,13 @@
 
       <!-- Interprétation IA -->
       <section class="section-block ai-analysis">
-        <h3>Interprétation IA</h3>
-        <p>À venir : analyse personnalisée de l'évolution et des besoins du patient basée sur ses données.</p>
+        <h3>Résumé (IA):</h3>
+        <p *ngIf="currentPatient.resumeIA; else pasDeResume">
+          {{ currentPatient.resumeIA }}
+        </p>
+        <ng-template #pasDeResume>
+          <p><em>Résumé IA non disponible pour ce patient.</em></p>
+        </ng-template>
       </section>
 
 

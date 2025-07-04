@@ -17,21 +17,17 @@
     "historique": [
       { "role": "assistant", "content": "Bonjour Alice ! Comment te sens-tu aujourd’hui ?" },
       { "role": "user", "content": "Je suis très anxieuse ce matin.", "date": "2025-07-01T09:15:00" },
-
       { "role": "assistant", "content": "As-tu réussi à limiter la cigarette hier ?" },
       { "role": "user", "content": "Non, j’ai fumé cinq cigarettes malgré moi.", "date": "2025-07-01T09:17:00" },
-
       { "role": "assistant", "content": "D’accord, nous allons trouver des alternatives." },
-
       { "role": "assistant", "content": "Comment s’est passée ta nuit ?" },
       { "role": "user", "content": "J’ai mieux dormi, je me suis couchée plus tôt.", "date": "2025-07-02T08:55:00" },
-
       { "role": "assistant", "content": "Très bien. As-tu noté moins d’envie de fumer au réveil ?" },
       { "role": "user", "content": "Oui, mais le stress revient en fin de matinée.", "date": "2025-07-02T09:00:00" },
-
       { "role": "assistant", "content": "Comment te sens-tu aujourd’hui ?" },
       { "role": "user", "content": "Plutôt sereine, j’ai tenu à 2 cigarettes.", "date": "2025-07-03T10:05:00" }
-    ]
+    ],
+    "resumeIA": "Alice présente une dynamique de changement positive, malgré une vulnérabilité au stress. Son discours traduit une conscience de ses comportements et une volonté sincère de progresser. Les baisses du nombre de cigarettes, associées à un meilleur sommeil, signalent une amélioration de son autorégulation. Toutefois, son autonomie reste faible et la dépendance semble encore conditionnée par l’anxiété. Une approche intégrative combinant TCC (gestion des pensées automatiques liées au stress) et soutien motivationnel serait appropriée pour consolider les efforts et prévenir les rechutes."
   },
   {
     "patientId": "p002",
@@ -51,18 +47,15 @@
     "historique": [
       { "role": "assistant", "content": "Bonjour Marc ! As-tu réussi à te détendre après le travail hier ?" },
       { "role": "user", "content": "Pas vraiment, j’ai encore très mal dormi.", "date": "2025-07-01T20:45:00" },
-
       { "role": "assistant", "content": "As-tu tenté l’exercice de respiration ?" },
       { "role": "user", "content": "Oui, mais mes pensées négatives reviennent vite.", "date": "2025-07-01T20:47:00" },
-
       { "role": "assistant", "content": "Je comprends. Comment s’est passée ta journée au travail ?" },
       { "role": "user", "content": "Beaucoup de stress, plusieurs deadlines.", "date": "2025-07-02T19:30:00" },
-
       { "role": "assistant", "content": "As-tu réussi à t’endormir plus tôt cette nuit ?" },
       { "role": "user", "content": "Oui, j’ai dormi 6 h, c’est mieux.", "date": "2025-07-03T08:10:00" },
-
       { "role": "assistant", "content": "Super ! Comment te sens-tu ce matin ?" },
       { "role": "user", "content": "Moins anxieux qu’hier, mais je reste tendu.", "date": "2025-07-03T08:12:00" }
-    ]
+    ],
+    "resumeIA": "Marc présente une souffrance psychique chronique, centrée sur des troubles du sommeil et une surcharge mentale professionnelle. Ses réponses révèlent une tendance à la rumination et une faible efficacité des stratégies d’apaisement testées. Malgré un certain recul sur ses difficultés, la persistance d’idées négatives et le signalement de pensées suicidaires nécessitent une vigilance accrue. Une prise en charge pluridisciplinaire est conseillée (psychologue, médecin, potentiellement psychiatre), avec un focus sur la réduction du stress perçu, la restructuration cognitive et la restauration du sommeil profond. Des techniques ACT ou MBCT pourraient aussi être envisagées."
   }
 ]
