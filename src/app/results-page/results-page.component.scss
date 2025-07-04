@@ -6,12 +6,14 @@
   color: #333;
   overflow-y: auto;
   max-height: 100dvh;
+  background: #faf5fb;
 }
 
 .title {
   text-align: center;
   margin-bottom: 2rem;
   font-size: 2rem;
+  color: #6a1b9a;
 }
 
 .section-block {
@@ -23,7 +25,6 @@
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 1rem;
-  background: #fafafa;
   max-width: 100%;
   height: 250px;
 }
@@ -34,9 +35,18 @@
   align-items: center;
   margin-bottom: 0.5rem;
 
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 12px;
+  background: #e1bee7;
+
   select, button {
     padding: 0.3rem 0.6rem;
     font-size: 0.9rem;
+  }
+  button {
+    background: #6a1b9a;
+    color: white;
   }
 }
 
@@ -48,7 +58,7 @@
 
   button {
     padding: 0.5rem 1rem;
-    background: #4285f4;
+    background: #6a1b9a;
     border: none;
     color: white;
     border-radius: 5px;
@@ -65,7 +75,7 @@
   border: 1px solid #ccc;
   padding: 1rem;
   border-radius: 12px;
-  background: #fdfdfd;
+  background: #e1bee7;
 
   h3 {
     margin-top: 0;
@@ -118,8 +128,8 @@
 }
 
 .ai-analysis {
-  background: #fff3cd;
-  border-left: 4px solid #ffecb5;
+  background: #f3e5f5;
+  border-left: 4px solid #ba68c8;
   padding: 1rem;
   border-radius: 8px;
 
@@ -180,7 +190,7 @@ progress::-webkit-progress-bar {
 }
 
 progress::-webkit-progress-value {
-  background-color: #66bb6a;
+  background-color: #6a1b9a;
   border-radius: 5px;
 }
 
@@ -199,6 +209,47 @@ progress::-webkit-progress-value {
 
 .history-table th {
   background-color: #f5f5f5;
+}
+
+h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 0.3rem;
+  color: #512da8;
+}
+
+h3 {
+  font-size: 1.3rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0.4rem;
+  color: #512da8;
+}
+
+.enhanced-list {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    background-color: #f9f9f9;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+
+    strong {
+      display: inline-block;
+      width: 160px;
+      color: #2c3e50;
+    }
+  }
+}
+
+.kpi-summary{
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 12px;
+  background: #e1bee7;
 }
 
 

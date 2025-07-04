@@ -242,13 +242,13 @@ export class ResultsPageComponent
           {
             label: 'Anxiété (est.)',
             data: emotionScores.map(s => s.anxiete),
-            borderColor: '#ef5350',
+            borderColor: '#3498db',
             tension: 0.3
           },
           {
             label: 'Moral (est.)',
             data: emotionScores.map(s => s.moral),
-            borderColor: '#66bb6a',
+            borderColor: '#6a1b9a',
             tension: 0.3
           }
         ]
@@ -327,8 +327,17 @@ export class ResultsPageComponent
   }
 
   private getColors(n: number): string[] {
-    const base = ['#42a5f5', '#66bb6a', '#ef5350', '#ffa726',
-      '#ab47bc', '#26c6da', '#d4e157', '#8d6e63'];
+    //const base = ['#42a5f5', '#66bb6a', '#ef5350', '#ffa726', '#ab47bc', '#26c6da', '#d4e157', '#8d6e63'];
+    const base = [
+      '#e1bee7', // violet très clair
+      '#ce93d8', // lavande douce
+      '#ba68c8', // violet moyen
+      '#ab47bc', // prune douce
+      '#9c27b0', // violet standard
+      '#8e24aa', // violet intense
+      '#7b1fa2', // prune foncé
+      '#6a1b9a'  // violet très foncé
+    ];
     const colors: string[] = [];
     for (let i = 0; i < n; i++) {
       colors.push(base[i % base.length]);
