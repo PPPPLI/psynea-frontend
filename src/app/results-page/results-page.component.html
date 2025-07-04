@@ -27,6 +27,14 @@
           <option *ngFor="let t of troubleList" [value]="t">{{ t }}</option>
         </select>
       </label>
+      <label>Autonomie :
+        <select [(ngModel)]="selectedAutonomie" (change)="filterPatients()">
+          <option value="">Toutes</option>
+          <option value="Faible">Faible</option>
+          <option value="Moyenne">Moyenne</option>
+          <option value="Bonne">Bonne</option>
+        </select>
+      </label>
 
       <button (click)="toggleSort()">
         Trier {{ sortDesc ? '▲' : '▼' }}
@@ -99,6 +107,24 @@
           <p><em>Résumé IA non disponible pour ce patient.</em></p>
         </ng-template>
       </section>
+
+      <!-- Historique des messages -->
+      <!--
+      <section class="section-block" *ngIf="userMessages.length > 0">
+        <h3>Historique des messages</h3>
+        <table class="history-table">
+          <tr>
+            <th>Date</th>
+            <th>Message</th>
+          </tr>
+          <tr *ngFor="let m of userMessages">
+            <td>{{ m.date ? (m.date | date:'short') : '—' }}</td>
+            <td>{{ m.content }}</td>
+          </tr>
+        </table>
+      </section>
+      -->
+
 
 
     </div>

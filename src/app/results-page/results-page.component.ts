@@ -44,6 +44,8 @@ export class ResultsPageComponent
   sortDesc = true;
   searchTerm: string = '';
   private troubleChart?: Chart;
+  //userMessages: { date?: string; content: string }[] = [];
+  selectedAutonomie: string = '';
 
   /* -------------------- Moyennes et compte ------------------*/
   avgAnxiete: number = 0;
@@ -144,6 +146,13 @@ export class ResultsPageComponent
       this.needChartRefresh = false;
       this.renderPatientEmotionChart();
     }
+    /**
+    if (this.currentPatient?.historique) {
+      this.userMessages = this.currentPatient.historique
+        .filter(m => m.role === 'user')
+        .map(m => ({ content: m.content, date: m.date }))
+        .slice(-5);
+    }**/
   }
 
   updateTroubleChart(): void {
@@ -177,7 +186,9 @@ export class ResultsPageComponent
     if (this.selectedTrouble !== 'Tous') {
       list = list.filter(p => p.troubles?.includes(this.selectedTrouble));
     }
-
+    if (this.selectedAutonomie) {
+      list = list.filter(p => p.autonomie === this.selectedAutonomie);
+    }
     if (term) {
       list = list.filter(p =>
         p.nom.toLowerCase().includes(term)
