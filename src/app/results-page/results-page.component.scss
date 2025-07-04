@@ -24,6 +24,20 @@
   border-radius: 10px;
   padding: 1rem;
   background: #fafafa;
+  max-width: 100%;
+  height: 250px;
+}
+
+.trouble-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+
+  select, button {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.9rem;
+  }
 }
 
 .patient-navigation {

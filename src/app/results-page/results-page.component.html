@@ -4,10 +4,24 @@
 
   <!-- Bloc de résumé des réponses utilisateur -->
   <section class="section-block">
-    <h2>Résumé des réponses</h2>
+    <h2>Répartition des troubles</h2>
 
     <div *ngIf="responses.length === 0" class="empty-state">
       Aucune donnée enregistrée.
+    </div>
+
+    <!-- Contrôles filtre + tri -->
+    <div class="trouble-controls">
+      <label>Trouble :
+        <select [(ngModel)]="selectedTrouble" (change)="updateTroubleChart()">
+          <option value="Tous">Tous</option>
+          <option *ngFor="let t of troubleList" [value]="t">{{ t }}</option>
+        </select>
+      </label>
+
+      <button (click)="toggleSort()">
+        Trier {{ sortDesc ? '▲' : '▼' }}
+      </button>
     </div>
 
     <div class="chart-box" *ngIf="responses.length > 0">
@@ -21,7 +35,7 @@
 
     <div class="patient-navigation">
       <button (click)="prevPatient()" [disabled]="currentPatientIndex === 0">← Précédent</button>
-      <span>Patient {{ currentPatientIndex + 1 }} / {{ patients.length }}</span>
+      <span>Patient {{ currentPatientIndex + 1 }} / {{ filteredPatients.length }}</span>
       <button (click)="nextPatient()" [disabled]="currentPatientIndex >= patients.length - 1">Suivant →</button>
     </div>
 
@@ -49,27 +63,15 @@
         <li><strong>Autonomie :</strong> {{ currentPatient.autonomie }}</li>
       </ul>
 
-      <div class="table-wrapper">
-        <table>
-          <thead>
-          <tr><th>Date</th><th>Anxiété</th><th>Moral</th></tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let s of currentPatient.suivi">
-            <td>{{ s.date }}</td>
-            <td>{{ s.anxiete }}</td>
-            <td>{{ s.moral }}</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+      <!-- Interprétation IA -->
+      <section class="section-block ai-analysis">
+        <h3>Interprétation IA</h3>
+        <p>À venir : analyse personnalisée de l'évolution et des besoins du patient basée sur ses données.</p>
+      </section>
+
+
     </div>
   </section>
 
-  <!-- Interprétation IA -->
-  <section class="section-block ai-analysis">
-    <h3>🧠 Interprétation IA</h3>
-    <p>⚠️ À venir : analyse personnalisée de l'évolution et des besoins du patient basée sur ses données.</p>
-  </section>
 
 </div>

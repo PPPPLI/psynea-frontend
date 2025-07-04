@@ -12,6 +12,7 @@ export interface FollowUp {
 export interface Message {
   role: 'assistant' | 'user';
   content: string;
+  date?: string;
 }
 
 export interface PatientResult {

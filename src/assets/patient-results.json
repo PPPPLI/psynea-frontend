@@ -7,7 +7,7 @@
     "scoreAnxiete": 6,
     "scoreMoral": 7,
     "suicidaire": false,
-    "troubles": ["Sommeil", "Dépendance"],
+    "troubles": ["Tabac", "Dépendance", "Stress"],
     "objectif": "Arrêter de fumer",
     "autonomie": "Faible",
     "suivi": [
@@ -15,12 +15,22 @@
       { "date": "2025-06-01", "anxiete": 4, "moral": 7 }
     ],
     "historique": [
-      { "role": "assistant", "content": "Bonjour Alice, comment vous sentez-vous aujourd'hui ?" },
-      { "role": "user", "content": "Je me sens un peu anxieuse ce matin." },
-      { "role": "assistant", "content": "Avez-vous bien dormi cette nuit ?" },
-      { "role": "user", "content": "Non, j’ai eu du mal à m’endormir." },
-      { "role": "assistant", "content": "Avez-vous consommé quelque chose pour vous aider à dormir ?" },
-      { "role": "user", "content": "Oui, un peu d’alcool." }
+      { "role": "assistant", "content": "Bonjour Alice ! Comment te sens-tu aujourd’hui ?" },
+      { "role": "user", "content": "Je suis très anxieuse ce matin.", "date": "2025-07-01T09:15:00" },
+
+      { "role": "assistant", "content": "As-tu réussi à limiter la cigarette hier ?" },
+      { "role": "user", "content": "Non, j’ai fumé cinq cigarettes malgré moi.", "date": "2025-07-01T09:17:00" },
+
+      { "role": "assistant", "content": "D’accord, nous allons trouver des alternatives." },
+
+      { "role": "assistant", "content": "Comment s’est passée ta nuit ?" },
+      { "role": "user", "content": "J’ai mieux dormi, je me suis couchée plus tôt.", "date": "2025-07-02T08:55:00" },
+
+      { "role": "assistant", "content": "Très bien. As-tu noté moins d’envie de fumer au réveil ?" },
+      { "role": "user", "content": "Oui, mais le stress revient en fin de matinée.", "date": "2025-07-02T09:00:00" },
+
+      { "role": "assistant", "content": "Comment te sens-tu aujourd’hui ?" },
+      { "role": "user", "content": "Plutôt sereine, j’ai tenu à 2 cigarettes.", "date": "2025-07-03T10:05:00" }
     ]
   },
   {
@@ -31,7 +41,7 @@
     "scoreAnxiete": 5,
     "scoreMoral": 6,
     "suicidaire": true,
-    "troubles": [],
+    "troubles": ["Sommeil", "Stress"],
     "objectif": "Mieux gérer le stress",
     "autonomie": "Moyenne",
     "suivi": [
@@ -39,12 +49,20 @@
       { "date": "2025-05-25", "anxiete": 5, "moral": 6 }
     ],
     "historique": [
-      { "role": "assistant", "content": "Bonjour Marc, avez-vous ressenti du stress récemment ?" },
-      { "role": "user", "content": "Oui, surtout au travail ces derniers jours." },
-      { "role": "assistant", "content": "Arrivez-vous à vous détendre une fois rentré chez vous ?" },
-      { "role": "user", "content": "Pas vraiment, j’ai des pensées négatives." },
-      { "role": "assistant", "content": "Souhaitez-vous parler de ces pensées ?" },
-      { "role": "user", "content": "Je pense souvent que je ne m’en sortirai jamais." }
+      { "role": "assistant", "content": "Bonjour Marc ! As-tu réussi à te détendre après le travail hier ?" },
+      { "role": "user", "content": "Pas vraiment, j’ai encore très mal dormi.", "date": "2025-07-01T20:45:00" },
+
+      { "role": "assistant", "content": "As-tu tenté l’exercice de respiration ?" },
+      { "role": "user", "content": "Oui, mais mes pensées négatives reviennent vite.", "date": "2025-07-01T20:47:00" },
+
+      { "role": "assistant", "content": "Je comprends. Comment s’est passée ta journée au travail ?" },
+      { "role": "user", "content": "Beaucoup de stress, plusieurs deadlines.", "date": "2025-07-02T19:30:00" },
+
+      { "role": "assistant", "content": "As-tu réussi à t’endormir plus tôt cette nuit ?" },
+      { "role": "user", "content": "Oui, j’ai dormi 6 h, c’est mieux.", "date": "2025-07-03T08:10:00" },
+
+      { "role": "assistant", "content": "Super ! Comment te sens-tu ce matin ?" },
+      { "role": "user", "content": "Moins anxieux qu’hier, mais je reste tendu.", "date": "2025-07-03T08:12:00" }
     ]
   }
 ]

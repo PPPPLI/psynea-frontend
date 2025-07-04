@@ -7,15 +7,20 @@ import {
   ViewChild
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ResultsService, PatientResult } from '../results.service';
+import { FormsModule } from '@angular/forms';
+import { ResultsService, PatientResult, Message } from '../results.service';
 import Chart from 'chart.js/auto';
 
+type MessageWithDate = {
+  content: string;
+  date: string;
+};
 
 
 @Component({
   selector: 'app-results-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './results-page.component.html',
   styleUrls: ['./results-page.component.scss']
 })
@@ -24,20 +29,28 @@ export class ResultsPageComponent
 
   /* -------------------- données globales -------------------- */
   responses: { role: string; content: string }[] = [];
-  userResponses: string[] = [];               // <-- pour le graphique “participation”
+  userResponses: string[] = [];
   patients: PatientResult[] = [];
   showChart = false;
 
   /* -------------------- navigation patient ------------------ */
   currentPatientIndex = 0;
-  private needChartRefresh = false;           // déclencheur de refresh graphique
+  private needChartRefresh = false;
+
+  /* -------- propriétés pour filtre/tri -------- */
+  filteredPatients: PatientResult[] = [];
+  troubleList: string[] = [];
+  selectedTrouble = 'Tous';
+  sortDesc = true;
+  private troubleChart?: Chart;
 
   get currentPatient(): PatientResult | undefined {
-    return this.patients[this.currentPatientIndex];
+    //return this.patients[this.currentPatientIndex];
+    return this.filteredPatients[this.currentPatientIndex];
   }
 
   nextPatient(): void {
-    if (this.currentPatientIndex < this.patients.length - 1) {
+    if (this.currentPatientIndex < this.filteredPatients.length - 1) {
       this.currentPatientIndex++;
       this.needChartRefresh = true;
       this.showChart = false;
@@ -69,6 +82,7 @@ export class ResultsPageComponent
 
   /* -------------------- cycle de vie ------------------------ */
   ngOnInit(): void {
+    this.filteredPatients = [...this.patients];
     /* 1. charge l’historique global du chatbot (facultatif) */
     const saved = localStorage.getItem('chatHistory');
     if (saved) {
@@ -83,11 +97,25 @@ export class ResultsPageComponent
     }
 
     /* 2. charge les patients (JSON local ou futur endpoint API) */
+    /*this.resultsSrv.getAll().subscribe(data => {
+      this.patients = data;
+      console.log('Patients chargés :', this.patients);
+      //this.needChartRefresh = true;
+      this.renderParticipationChart();
+    });*/
+
     this.resultsSrv.getAll().subscribe(data => {
       this.patients = data;
-      /* déclenche le rendu du 1er patient dès que les données arrivent */
-      this.needChartRefresh = true;
+      console.log('Patients chargés :', this.patients);
+
+      const set = new Set<string>();
+      this.patients.forEach(p => (p.troubles || []).forEach(t => set.add(t)));
+      this.troubleList = Array.from(set);
+      this.filteredPatients = [...this.patients];
+
+      this.renderParticipationChart();
     });
+
   }
 
   ngAfterViewInit(): void {
@@ -108,40 +136,64 @@ export class ResultsPageComponent
     }
   }
 
-  /* -------------------- graphiques -------------------------- */
+  updateTroubleChart(): void {
+    this.renderParticipationChart();
+
+    if (this.selectedTrouble === 'Tous') {
+      this.filteredPatients = [...this.patients];
+    } else {
+      this.filteredPatients = this.patients.filter(p =>
+        p.troubles && p.troubles.includes(this.selectedTrouble)
+      );
+    }
+
+    this.currentPatientIndex = 0;
+    this.renderParticipationChart();
+  }
+
+
+  toggleSort(): void {
+    this.sortDesc = !this.sortDesc;
+    this.renderParticipationChart();
+  }
+
   private renderPatientEmotionChart(): void {
     if (!this.currentPatient || !this.patientEmotionChartRef) return;
 
-    /* extrait seules les réponses utilisateur */
-    const userInputs = (this.currentPatient.historique || [])
-      .filter(m => m.role === 'user')
-      .map(m => m.content.toLowerCase());
+    type MessageWithDate = { content: string; date: string };
+    const isUserMessageWithDate = (m: any): m is MessageWithDate =>
+      m.role === 'user' && typeof m.content === 'string' && typeof m.date === 'string';
 
-    if (userInputs.length === 0) return;
+    const rawUserMessages = (this.currentPatient.historique || [])
+      .filter(m => m.role === 'user' && typeof (m as any).date === 'string')
+      .map(m => ({
+        content: m.content.toLowerCase(),
+        date: (m as any).date as string
+      }));
 
-    /* keywords très simples (à affiner) */
+    if (rawUserMessages.length === 0) return;
+
+    const sorted = rawUserMessages
+      .filter(m => !!m.date)
+      .sort((a, b) => new Date(a.date!).getTime() - new Date(b.date!).getTime());
+
     const anxieteKeywords = ['peur', 'angoisse', 'stress', 'panique'];
     const moralKeywords   = ['heureux', 'bien', 'mal', 'triste', 'vide'];
 
-    const emotionScores = userInputs.map(txt => ({
-      anxiete: anxieteKeywords.some(k => txt.includes(k))
-        ? 7 + Math.random() * 2
-        : 2 + Math.random() * 2,
-      moral: moralKeywords.some(k => txt.includes(k))
-        ? 6 + Math.random() * 2
-        : 3 + Math.random() * 2
+    const emotionScores = sorted.map(({ content }) => ({
+      anxiete: anxieteKeywords.some(k => content.includes(k)) ? 7 + Math.random() * 2 : 2 + Math.random() * 2,
+      moral:   moralKeywords.some(k => content.includes(k))   ? 6 + Math.random() * 2 : 3 + Math.random() * 2
     }));
-
-    /* détruit l’ancien chart pour éviter les fuites mémoire */
-    if (this.patientChart) this.patientChart.destroy();
 
     const ctx = this.patientEmotionChartRef.nativeElement.getContext('2d');
     if (!ctx) return;
+    if (this.patientChart) this.patientChart.destroy();
 
     this.patientChart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: userInputs.map((_, i) => `Q${i + 1}`),
+        //labels: sorted.map(m => new Date(m.date).toLocaleDateString('fr-FR')),
+        labels: sorted.map(m => new Date(m.date!).toLocaleDateString('fr-FR')),
         datasets: [
           {
             label: 'Anxiété (est.)',
@@ -159,32 +211,85 @@ export class ResultsPageComponent
       },
       options: {
         responsive: true,
-        plugins: { title: { display: true, text: 'Évolution anxiété / moral (estimée)' } },
-        scales: { y: { min: 0, max: 10 } }
+        plugins: {
+          title: { display: true, text: 'Évolution anxiété / moral (par date)' }
+        },
+        scales: {
+          y: { min: 0, max: 10 }
+        }
       }
     });
   }
 
-  /** graphique de “participation” global (facultatif) */
-  private renderParticipationChart(): void {
+  renderParticipationChart(): void {
     const ctx = this.participationChartRef.nativeElement.getContext('2d');
     if (!ctx) return;
 
-    new Chart(ctx, {
+    const { labels, data } = this.buildTroubleChartData();
+    if (labels.length === 0) return;
+
+    /* détruit ancien chart */
+    if (this.troubleChart) this.troubleChart.destroy();
+
+    this.troubleChart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: this.userResponses.map((_, i) => `Q${i + 1}`),
+        labels,
         datasets: [{
-          label: 'Réponses utilisateur',
-          data: this.userResponses.map(() => 1),
-          backgroundColor: '#42a5f5'
+          label: 'Patients',
+          data,
+          backgroundColor: this.getColors(labels.length)
         }]
       },
       options: {
         responsive: true,
-        plugins: { title: { display: true, text: 'Participation aux questions' }, legend: { display: false } },
+        plugins: {
+          title: { display: true, text: 'Patients par trouble' },
+          legend: { display: false }
+        },
         scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
       }
     });
   }
+
+
+  private buildTroubleChartData() {
+    const counts: Record<string, number> = {};
+
+    if (this.selectedTrouble === 'Tous') {
+      // Cas général : tous les troubles
+      this.patients.forEach(p => {
+        (p.troubles || []).forEach(t => {
+          counts[t] = (counts[t] || 0) + 1;
+        });
+      });
+    } else {
+      // Cas filtré : un seul trouble
+      this.patients.forEach(p => {
+        if (p.troubles.includes(this.selectedTrouble)) {
+          counts[this.selectedTrouble] = (counts[this.selectedTrouble] || 0) + 1;
+        }
+      });
+    }
+
+    let entries = Object.entries(counts);
+    entries = entries.sort((a, b) =>
+      this.sortDesc ? b[1] - a[1] : a[1] - b[1]);
+
+    return {
+      labels: entries.map(e => e[0]),
+      data:   entries.map(e => e[1])
+    };
+  }
+
+  private getColors(n: number): string[] {
+    const base = ['#42a5f5', '#66bb6a', '#ef5350', '#ffa726',
+      '#ab47bc', '#26c6da', '#d4e157', '#8d6e63'];
+    const colors: string[] = [];
+    for (let i = 0; i < n; i++) {
+      colors.push(base[i % base.length]);
+    }
+    return colors;
+  }
+
 }
